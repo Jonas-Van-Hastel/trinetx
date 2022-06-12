@@ -24,6 +24,7 @@ class GildedRose {
 
             // "Conjured" items degrade in Quality twice as fast as normal items
             if (items[i].name.contains(CONJURED)) {
+                // The Quality of an item is never more than 50
                 if (items[i].quality < 50) {
                     items[i].quality -= 2;
                 }
@@ -34,12 +35,21 @@ class GildedRose {
                     items[i].quality -= 1;
                 }
             } else {
+
+                /*
+                 * "Backstage passes", like aged brie, increases in Quality as its SellIn value
+                 * approaches,
+                 * Quality increases by 2 when there are 10 days or less and by 3 when there are
+                 * 5 days or less but
+                 * Quality drops to 0 after the concert
+                 */
+
+                // The Quality of an item is never more than 50
                 if (items[i].quality < 50) {
+                    // "Aged Brie" actually increases in Quality the older it gets
                     items[i].quality += 1;
 
                     if (items[i].name.equals(BACKSTAGE_PASSES)) {
-                        items[i].quality += 1;
-
                         if (items[i].sellIn < 11) {
                             items[i].quality += 1;
                         }
@@ -56,12 +66,14 @@ class GildedRose {
                 if (!items[i].name.equals(AGED_BRIE)) {
                     if (!items[i].name.equals(BACKSTAGE_PASSES)) {
                         if (!items[i].name.equals(SULFURAS)) {
+                            // Once the sell by date has passed, Quality degrades twice as fast
                             items[i].quality -= 1;
                         }
                     } else {
                         items[i].quality -= items[i].quality;
                     }
                 } else {
+                    // The Quality of an item is never more than 50
                     if (items[i].quality < 50) {
                         items[i].quality += 1;
                     }
